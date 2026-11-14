@@ -65,7 +65,7 @@ The workspace started without a repository. Primary implementation groups:
 
 Empty package directories reserve the remaining architecture modules; they do not imply
 implemented accounting, ingestion, matching workflow or risk services. The lockfile is supplied
-in the repository. The GitHub delivery adds a private source repository and Codespaces setup.
+in the repository. The GitHub handoff adds a Codespaces setup; creating the private remote repository remains blocked by integration permissions.
 
 ## Packaging verification
 
@@ -83,8 +83,9 @@ repository-relative configuration, recording, migration and dashboard commands.
 
 The configured projectless output mount could not be created because /codex is read-only in
 this attached environment. The source workspace remains at
-/workspace/work/prediction-market-engine. A later GitHub handoff publishes source to a private
-repository so the owner can clone it or create a Codespace.
+/workspace/work/prediction-market-engine. The GitHub handoff prepares source for a private
+repository so the owner can clone it or create a Codespace. Remote publication is pending: the
+GitHub integration rejected createRepository with Resource not accessible by integration.
 
 
 ## GitHub launcher handoff
@@ -101,3 +102,9 @@ authenticated synthetic paper control, absence of the token in logs, and child c
 shutdown. Bash syntax and devcontainer JSON were checked locally. An actual GitHub Codespaces
 creation was not executed here; its startup remains unverified until the owner launches one.
 Windows/macOS execution also remains unverified. GitHub Actions results are reported separately.
+
+The complete source is committed locally on branch main. The destination account is grisheet;
+the planned repository is prediction-market-engine. The owner must create that empty private
+repository (without starter files) before upload can proceed. No code was pushed and no
+GitHub Actions run or Codespaces creation was claimed. Local tests remain 54 passed; Ruff,
+formatting, mypy and dependency lock validation passed.
