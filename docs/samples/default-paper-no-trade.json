@@ -1,0 +1,26 @@
+{
+  "result_label": "SYNTHETIC",
+  "seed": 42,
+  "orders": [],
+  "signal": {
+    "status": "REJECTED",
+    "strategy": "within_venue",
+    "legs": [],
+    "quantity": "0",
+    "payout": "0",
+    "acquisition_cost": "0",
+    "fees": "0",
+    "other_costs": "0",
+    "gross_profit": "0",
+    "net_profit": "0",
+    "roi": "0",
+    "receive_skew_ms": "0",
+    "age_ms": "0",
+    "rejection_reasons": [
+      "NO_FEASIBLE_PROFITABLE_SIZE"
+    ],
+    "expires_at": null,
+    "result_label": "SYNTHETIC"
+  },
+  "status": "NO_TRADE"
+}

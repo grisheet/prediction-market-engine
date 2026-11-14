@@ -1,0 +1,37 @@
+{
+  "status": "EVALUABLE",
+  "strategy": "within_venue",
+  "legs": [
+    {
+      "venue": "mock",
+      "market_id": "synthetic-1",
+      "outcome": "YES",
+      "quantity": "20",
+      "cost": "9.20",
+      "fee": "0.10",
+      "worst_price": "0.46"
+    },
+    {
+      "venue": "mock",
+      "market_id": "synthetic-1",
+      "outcome": "NO",
+      "quantity": "20",
+      "cost": "10.20",
+      "fee": "0.10",
+      "worst_price": "0.51"
+    }
+  ],
+  "quantity": "20",
+  "payout": "20",
+  "acquisition_cost": "19.40",
+  "fees": "0.20",
+  "other_costs": "0",
+  "gross_profit": "0.60",
+  "net_profit": "0.40",
+  "roi": "0.02040816326530612244897959184",
+  "receive_skew_ms": "0",
+  "age_ms": "0",
+  "rejection_reasons": [],
+  "expires_at": "2026-01-01T00:00:01Z",
+  "result_label": "SYNTHETIC"
+}

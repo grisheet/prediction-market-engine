@@ -1,0 +1,17 @@
+mode: offline_demo
+live_trading_enabled: false
+require_operator_arm: true
+operator_arm_ttl_seconds: 900
+allow_cross_currency: false
+require_approved_cross_venue_mapping: true
+max_book_age_ms: 1000
+max_cross_venue_receive_skew_ms: 500
+min_net_profit_usd: '0.25'
+min_net_roi: '0.005'
+max_order_cost_usd: '10.00'
+max_total_committed_usd: '50.00'
+max_event_committed_usd: '20.00'
+max_unmatched_cost_usd: '5.00'
+max_daily_realized_loss_usd: '5.00'
+adverse_movement_reserve_per_share_usd: '0.005'
+daily_reset_timezone: UTC

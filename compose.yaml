@@ -1,0 +1,14 @@
+services:
+  engine:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      PM_MODE: offline_demo
+      PM_LIVE_TRADING_ENABLED: 'false'
+      PM_DATABASE_URL: sqlite:////data/engine.db
+      PM_CONTROL_TOKEN: ${PM_CONTROL_TOKEN:-}
+    volumes:
+      - research-data:/data
+volumes:
+  research-data:

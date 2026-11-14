@@ -1,0 +1,26 @@
+{
+  "result_label": "SYNTHETIC",
+  "seed": 42,
+  "orders": [
+    {
+      "order_id": "YES",
+      "state": "FILLED",
+      "filled_quantity": "20",
+      "cost": "9.20",
+      "fee": "0.10",
+      "arrival_ms": 10,
+      "reason": "",
+      "result_label": "SYNTHETIC"
+    },
+    {
+      "order_id": "NO",
+      "state": "FILLED",
+      "filled_quantity": "20",
+      "cost": "10.20",
+      "fee": "0.10",
+      "arrival_ms": 10,
+      "reason": "",
+      "result_label": "SYNTHETIC"
+    }
+  ]
+}

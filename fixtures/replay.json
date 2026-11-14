@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "result_label": "SYNTHETIC",
+  "events": [
+    {
+      "at_ms": 0,
+      "book": {
+        "venue": "mock",
+        "market_id": "synthetic-1",
+        "outcome": "YES",
+        "bids": [],
+        "asks": [
+          {
+            "price": "0.46",
+            "quantity": "20"
+          }
+        ],
+        "version": "1",
+        "sequence": 1,
+        "venue_timestamp": "2026-01-01T00:00:00Z",
+        "received_at": "2026-01-01T00:00:00Z",
+        "received_monotonic_ns": 0,
+        "quality": "VALID"
+      },
+      "fee": {
+        "version": "synthetic-v1",
+        "per_contract": "0.005",
+        "probability_coefficient": "0",
+        "rounding_unit": "0.01",
+        "minimum_per_fill": "0"
+      },
+      "connected": true,
+      "market_open": true
+    },
+    {
+      "at_ms": 0,
+      "book": {
+        "venue": "mock",
+        "market_id": "synthetic-1",
+        "outcome": "NO",
+        "bids": [],
+        "asks": [
+          {
+            "price": "0.51",
+            "quantity": "20"
+          }
+        ],
+        "version": "1",
+        "sequence": 1,
+        "venue_timestamp": "2026-01-01T00:00:00Z",
+        "received_at": "2026-01-01T00:00:00Z",
+        "received_monotonic_ns": 0,
+        "quality": "VALID"
+      },
+      "fee": {
+        "version": "synthetic-v1",
+        "per_contract": "0.005",
+        "probability_coefficient": "0",
+        "rounding_unit": "0.01",
+        "minimum_per_fill": "0"
+      },
+      "connected": true,
+      "market_open": true
+    }
+  ],
+  "orders": [
+    {
+      "order_id": "YES",
+      "venue": "mock",
+      "market_id": "synthetic-1",
+      "outcome": "YES",
+      "signal_ms": 0,
+      "quantity": "20",
+      "price_cap": "1",
+      "latency_ms": 10
+    },
+    {
+      "order_id": "NO",
+      "venue": "mock",
+      "market_id": "synthetic-1",
+      "outcome": "NO",
+      "signal_ms": 0,
+      "quantity": "20",
+      "price_cap": "1",
+      "latency_ms": 10
+    }
+  ]
+}
