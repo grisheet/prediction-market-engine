@@ -65,7 +65,7 @@ The workspace started without a repository. Primary implementation groups:
 
 Empty package directories reserve the remaining architecture modules; they do not imply
 implemented accounting, ingestion, matching workflow or risk services. The lockfile is supplied
-in the repository. The GitHub handoff adds a Codespaces setup; creating the private remote repository remains blocked by integration permissions.
+in the repository. The GitHub handoff adds a Codespaces setup; the owner created the private remote repository after integration permissions blocked automated creation.
 
 ## Packaging verification
 
@@ -84,7 +84,7 @@ repository-relative configuration, recording, migration and dashboard commands.
 The configured projectless output mount could not be created because /codex is read-only in
 this attached environment. The source workspace remains at
 /workspace/work/prediction-market-engine. The GitHub handoff prepares source for a private
-repository so the owner can clone it or create a Codespace. Remote publication is pending: the
+repository so the owner can clone it or create a Codespace. The owner supplied https://github.com/grisheet/prediction-market-engine.git after the
 GitHub integration rejected createRepository with Resource not accessible by integration.
 
 
@@ -104,7 +104,7 @@ creation was not executed here; its startup remains unverified until the owner l
 Windows/macOS execution also remains unverified. GitHub Actions results are reported separately.
 
 The complete source is committed locally on branch main. The destination account is grisheet;
-the planned repository is prediction-market-engine. The owner must create that empty private
-repository (without starter files) before upload can proceed. No code was pushed and no
-GitHub Actions run or Codespaces creation was claimed. Local tests remain 54 passed; Ruff,
+the destination repository is prediction-market-engine. The owner created the empty private
+repository and explicitly supplied its URL for upload. GitHub Actions status will be verified
+after the push. No Codespaces creation is claimed. Local tests remain 54 passed; Ruff,
 formatting, mypy and dependency lock validation passed.
