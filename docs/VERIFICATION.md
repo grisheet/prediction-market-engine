@@ -108,3 +108,25 @@ the destination repository is prediction-market-engine. The owner created the em
 repository and explicitly supplied its URL for upload. GitHub Actions status will be verified
 after the push. No Codespaces creation is claimed. Local tests remain 54 passed; Ruff,
 formatting, mypy and dependency lock validation passed.
+
+
+## GitHub Pages setup and results website
+
+The website handoff adds a real setup guide, source report display, interactive pricing and
+paper demo, export controls, skeleton loading/error states, Terms of Use and Privacy Policy.
+The Python engine remains unchanged. Existing public Pages settings point to main at the
+repository root. No repository visibility or audience change is required for this update.
+
+The browser calculation uses locally vendored decimal.js 10.6.0. Its npm archive integrity
+was checked against the official registry metadata before extraction; source/hash/license
+are recorded in web/vendor/. No external runtime fonts, analytics or trading APIs are used.
+Inputs are in-memory only. Documentation differentiates this focused demo from the full
+Python application, synthetic output from live quotes, and potential surplus from realized P&L.
+
+The web tests validate financial equality with the original Python reports, risk rejection,
+fee/depth math, failed-leg exposure, deterministic simulation, user input invalidation,
+stop/restart, error states, legal links, local assets, loading states and design exclusions.
+UI controls are tested using JSDOM, not a real browser. Full visual browser QA was unavailable:
+the managed Sites environment has no browser-control tool in this session. No screenshot or
+rendered-browser verification is claimed. Deployment HTTP checks and GitHub Actions are
+verified separately after publication.

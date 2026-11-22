@@ -12,7 +12,7 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["app"]
 [tool.hatch.build.targets.sdist]
-include = ["app", "config", "fixtures", "tests", "docs", ".github", ".devcontainer", "scripts", ".env.example", ".gitignore", ".dockerignore", "pyproject.toml", "uv.lock", "alembic.ini", "Dockerfile", "compose.yaml", "README.md"]
+include = ["app", "config", "fixtures", "tests", "docs", ".github", ".devcontainer", "scripts", ".env.example", ".gitignore", ".dockerignore", "pyproject.toml", "uv.lock", "alembic.ini", "Dockerfile", "compose.yaml", "README.md", "web", "index.html", "terms.html", "privacy.html", "package.json", "package-lock.json", ".nojekyll"]
 [project.scripts]
 pm-engine = "app.cli:main"
 [tool.pytest.ini_options]

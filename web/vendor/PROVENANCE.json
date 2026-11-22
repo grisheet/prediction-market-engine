@@ -1,0 +1,7 @@
+{
+  "package": "decimal.js",
+  "version": "10.6.0",
+  "source": "https://registry.npmjs.org/decimal.js/10.6.0",
+  "integrity": "sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==",
+  "decimal_mjs_sha256": "45e6ecc0a500fee6439acdf67ee2e9322aab57e6ea0409ef52993dedbba8cf19"
+}

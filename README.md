@@ -3,7 +3,29 @@
 A working Python 3.12 offline research repository, not a live trading system. Every supplied
 market, recording, fee schedule and profit example is **SYNTHETIC**. Real adapters fail closed.
 
-## Run directly from GitHub
+## Website: setup, results and working demo
+
+Open **https://grisheet.github.io/prediction-market-engine/**. No installation or terminal is
+needed to use the website. It teaches setup, displays the original synthetic Python report
+files, and provides a functioning browser calculator and paper simulation.
+
+The website's demo uses the vendored decimal.js 10.6.0 library for exact decimal arithmetic.
+It supports a USD, unit-payout binary pair, whole contracts, USD 0.01 price ticks, ask depth,
+per-level rounded synthetic fees, conservative sizing, risk limits and failed-leg scenarios.
+Financial values export as strings. Inputs stay in memory in the current browser tab; there
+is no trading account connection or server process. Terms and Privacy are linked in the footer.
+
+The original Python application remains the complete research interface for API, SQLite
+records, replay and broader domain models. Open it in Codespaces using the instructions below.
+The website does not claim that GitHub Pages runs Python or Streamlit. Codespaces execution
+remains distinct from the website and is subject to your GitHub plan.
+
+For contributors: `npm ci --ignore-scripts`, `npm test`, and `npm run check` validate the
+website without a Python server. The repository's existing GitHub Pages configuration publishes
+main from the repository root. `index.html` is the website entry point and `.nojekyll` preserves
+its assets as ordinary files. No separate website build or custom hosting account is required.
+
+## Run the full Python application in GitHub Codespaces
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/grisheet/prediction-market-engine?quickstart=1)
 

@@ -12,3 +12,5 @@ reports/
 
 .hypothesis/
 dist/
+node_modules/
+coverage/

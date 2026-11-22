@@ -1,0 +1,12 @@
+{
+  "name": "prediction-market-engine-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/web/*.test.mjs",
+    "check": "node --check web/app.mjs && node --check web/engine.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "26.1.0"
+  }
+}
