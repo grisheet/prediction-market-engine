@@ -130,3 +130,21 @@ UI controls are tested using JSDOM, not a real browser. Full visual browser QA w
 the managed Sites environment has no browser-control tool in this session. No screenshot or
 rendered-browser verification is claimed. Deployment HTTP checks and GitHub Actions are
 verified separately after publication.
+
+
+## Interface and automatic theme refresh
+
+The interface refresh adds a solid sticky navigation bar, a more compact research layout,
+scenario shortcuts, input-driven net-by-size charts, and shared System / Light / Dark controls
+across the main page and legal pages. System mode uses prefers-color-scheme and responds to
+changes while open. Explicit overrides persist under pm-engine.theme; returning to System
+removes the override. Theme initialization runs before the stylesheet to limit theme flashing.
+Storage exceptions, invalid values, legacy media listeners, cross-tab updates and disabled
+matchMedia have safe fallbacks. The privacy policy now documents theme-only local storage.
+
+All 30 web unit and DOM-integration tests passed locally. They include theme preference
+behavior, scenario state, invalidation, financial profile equality, and accessible chart output.
+JavaScript syntax checks passed. The calculation core is unchanged. Real-browser visual QA
+remains unavailable in this managed environment because no browser-control tool is exposed;
+no screenshot or visual browser result is claimed. GitHub Actions and deployment HTTP status
+are checked separately after pushing this update.

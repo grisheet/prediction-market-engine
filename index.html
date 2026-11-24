@@ -4,23 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Learn to set up the Prediction Market Engine, inspect recorded results, and test a working fee-aware paper demo.">
-  <meta name="theme-color" content="#e8ece9">
+  <meta name="theme-color" content="#e7ecef">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <title>Prediction Market Engine | Setup & research</title>
-  <link rel="stylesheet" href="./web/style.css">
+  <script src="./web/theme.js"></script><link rel="stylesheet" href="./web/style.css">
   <script type="module" src="./web/app.mjs"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="./" aria-label="Prediction Market Engine home"><span class="brand-mark" aria-hidden="true">P/M</span><span>Prediction<br>Market Engine</span></a>
-    <nav aria-label="Main navigation"><a href="#demo">Working demo</a><a href="#setup">Setup guide</a><a href="#results">Results</a><a class="repository" href="https://github.com/grisheet/prediction-market-engine" target="_blank" rel="noopener noreferrer">View source</a></nav>
+    <nav aria-label="Main navigation"><a href="#demo" data-section="demo">Working demo</a><a href="#setup" data-section="setup">Setup guide</a><a href="#results" data-section="results">Results</a><a class="repository" href="https://github.com/grisheet/prediction-market-engine" target="_blank" rel="noopener noreferrer">View source</a></nav>
+    <div class="theme-control"><label for="theme-preference">Theme</label><select id="theme-preference" data-theme-select aria-label="Color theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></div>
   </header>
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-title">
-      <div class="hero-copy"><p class="eyebrow">A research tool, with the workings exposed</p><h1 id="hero-title">Test the numbers.<br>Understand the risk.</h1><p class="intro">A practical guide to the Prediction Market Engine. Explore the pricing, read the actual synthetic results, then set up the full Python application from GitHub.</p><div class="actions"><a class="button primary" href="#demo">Try the working demo</a><a class="text-link" href="#setup">Set up the full engine</a></div><p class="caption">Paper research first. Real venue integrations remain disabled.</p></div>
+      <div class="hero-copy"><p class="eyebrow">Research / execution / exposure</p><h1 id="hero-title">Test the numbers.<br>Understand the risk.</h1><p class="intro">Explore a prediction-market pair from quote to fill. Test the costs, see what breaks at execution, and set up the full engine from GitHub.</p><div class="actions"><a class="button primary" href="#demo">Try the working demo</a><a class="text-link" href="#setup">Set up the full engine</a></div><div class="hero-index"><span>Decimal pricing</span><span>Depth-aware sizing</span><span>Paper execution</span></div><p class="caption">Paper research first. Real venue integrations remain disabled.</p></div>
       <aside class="reference" aria-label="Recorded synthetic result">
-        <div class="reference-top"><span class="eyebrow">The reference case</span><span class="tag">SYNTHETIC</span></div>
+        <div class="reference-top"><span class="eyebrow">Research snapshot</span><span class="tag">SYNTHETIC</span></div>
         <p class="reference-label">Potential surplus after fees</p><p class="reference-value" id="hero-net">$0.40</p>
         <p class="reference-context">20 paired contracts. One binary market.<br>YES at $0.46, NO at $0.51.</p>
         <dl class="receipt"><div><dt>Acquisition</dt><dd>$19.40</dd></div><div><dt>Synthetic fees</dt><dd>$0.20</dd></div><div><dt>Combined payout, if resolved</dt><dd>$20.00</dd></div></dl>
@@ -34,6 +35,7 @@
       <noscript><p class="notice">Enable JavaScript to use the working demo. The setup guide and original reports remain available below.</p></noscript>
       <div id="load-state" class="loading" role="status" aria-label="Loading the demo"><span class="skeleton long"></span><span class="skeleton"></span><p>Loading the calculation and source reports.</p></div>
       <p id="data-error" class="notice" hidden></p>
+      <div class="scenario-bar" id="scenario-bar" hidden><span class="eyebrow">Explore a scenario</span><div class="scenario-options" role="group" aria-label="Scenario presets"><button type="button" data-preset="reference" aria-pressed="true">Reference pair</button><button type="button" data-preset="conservative" aria-pressed="false">Risk defaults</button><button type="button" data-preset="depth" aria-pressed="false">Multiple levels</button><button type="button" data-preset="noedge" aria-pressed="false">No edge</button></div></div>
       <div class="lab" id="lab" hidden>
         <form id="demo-form" class="lab-inputs">
           <div class="lab-heading"><h3>Market inputs</h3><span class="tag">USD · UNIT PAYOUT</span></div>
@@ -41,12 +43,13 @@
           <div class="outcomes"><div><label for="yes-depth">YES executable asks</label><textarea id="yes-depth" rows="3" spellcheck="false">0.46, 20</textarea></div><div><label for="no-depth">NO executable asks</label><textarea id="no-depth" rows="3" spellcheck="false">0.51, 20</textarea></div></div><p class="field-help">Each line is price, contracts. Lowest price first. USD 0.01 ticks and whole contracts only.</p>
           <div class="fields"><div><label for="quantity">Maximum matched contracts</label><input id="quantity" inputmode="numeric" value="20" required></div><div><label for="fee">Fee per contract, per leg (USD)</label><input id="fee" inputmode="decimal" value="0.005" required></div><div><label for="reserve">Adverse reserve per pair (USD)</label><input id="reserve" inputmode="decimal" value="0" required></div><div><label for="max-unmatched">Maximum unmatched leg (USD)</label><input id="max-unmatched" inputmode="decimal" value="20" required></div></div>
           <details class="advanced"><summary>Profit thresholds and risk limits</summary><div class="fields"><div><label for="min-profit">Minimum net profit (USD)</label><input id="min-profit" inputmode="decimal" value="0.25" required></div><div><label for="min-roi">Minimum net ROI (decimal)</label><input id="min-roi" inputmode="decimal" value="0.005" required></div><div><label for="max-order">Maximum cost per leg (USD)</label><input id="max-order" inputmode="decimal" value="20" required></div><div><label for="balance">Shared synthetic balance (USD)</label><input id="balance" inputmode="decimal" value="50" required></div><div><label for="max-total">Maximum total committed (USD)</label><input id="max-total" inputmode="decimal" value="50" required></div><div><label for="max-event">Maximum event committed (USD)</label><input id="max-event" inputmode="decimal" value="20" required></div><div><label for="book-age">Book age (ms)</label><input id="book-age" inputmode="numeric" value="0" required></div></div><label class="checkbox"><input id="fees-known" type="checkbox" checked>Fee schedule is known</label><p class="field-help">The fee schedule is synthetic and rounds each consumed level up to a cent. Freshness limit: 1,000 ms.</p></details>
-          <button type="submit" class="button primary">Evaluate the pair</button><p class="field-help">The reference case raises the original order and unmatched limits to $20. Select Conservative to test the repository defaults.</p>
+          <button type="submit" class="button primary">Evaluate the pair</button><p class="field-help">Change any input, then evaluate to update the chart and result. The reference case raises order and unmatched limits to $20.</p>
         </form>
         <div class="lab-output" aria-live="polite" aria-atomic="true">
           <div class="lab-heading"><h3>Calculation</h3><span id="quote-status" class="tag">READY</span></div>
           <p id="quote-message" class="result-message">Evaluate a pair to see its costs.</p>
           <div id="quote-details" hidden><div class="net-total"><span>Potential net profit</span><strong id="net-value">$0.00</strong><span id="net-context"></span></div><dl id="quote-breakdown" class="receipt"></dl><p class="fine-print">Net profit includes fees and the selected reserve. Payout is conditional on resolution. It is not cash realized now.</p></div>
+          <div id="size-profile" class="size-profile" hidden><div class="profile-heading"><h3>Net by matched size</h3><span id="profile-range" class="fine-print"></span></div><div id="profile-chart"></div><p class="field-help">Calculated from your ask depth, rounded fees and reserve. Smaller sizes may not pass the profit thresholds.</p></div>
           <div class="paper-controls"><h3>What happens at execution?</h3><label for="paper-scenario">Arrival scenario</label><select id="paper-scenario"><option value="normal">Both legs fill at the displayed depth</option><option value="partial">NO depth drops by half</option><option value="moved">NO prices rise past the price cap</option><option value="disconnected">NO feed disconnects</option></select><button type="button" class="button secondary" id="paper-run" disabled>Run paper simulation</button><p class="field-help">Each click starts an independent run with 10 ms arrival latency. No passive fills or automatic hedge.</p></div>
           <div id="paper-output" hidden></div>
           <div class="output-actions"><button type="button" class="text-button" id="download-run" disabled>Download this result (JSON)</button><button type="button" class="text-button danger" id="kill-switch">Stop this demo</button></div><p id="kill-message" class="fine-print">The stop control blocks new calculations and paper runs in this tab.</p>

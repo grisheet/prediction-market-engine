@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/web/*.test.mjs",
-    "check": "node --check web/app.mjs && node --check web/engine.mjs"
+    "check": "node --check web/app.mjs && node --check web/engine.mjs && node --check web/profile.mjs && node --check web/theme.js"
   },
   "devDependencies": {
     "jsdom": "26.1.0"

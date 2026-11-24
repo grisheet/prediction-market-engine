@@ -12,8 +12,11 @@ files, and provides a functioning browser calculator and paper simulation.
 The website's demo uses the vendored decimal.js 10.6.0 library for exact decimal arithmetic.
 It supports a USD, unit-payout binary pair, whole contracts, USD 0.01 price ticks, ask depth,
 per-level rounded synthetic fees, conservative sizing, risk limits and failed-leg scenarios.
-Financial values export as strings. Inputs stay in memory in the current browser tab; there
-is no trading account connection or server process. Terms and Privacy are linked in the footer.
+Financial values export as strings. Financial inputs stay in memory in the current browser tab; there
+is no trading account connection or server process. Theme defaults to System and follows device
+changes. The header also offers Light and Dark; only an explicit theme override is saved locally.
+Scenario shortcuts update the working demo, and a decimal-derived size curve shows net profit
+across matched quantities without inventing market data. Terms and Privacy are linked in the footer.
 
 The original Python application remains the complete research interface for API, SQLite
 records, replay and broader domain models. Open it in Codespaces using the instructions below.

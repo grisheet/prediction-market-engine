@@ -103,3 +103,20 @@ test('legal policies, real demo, skeleton states and visual exclusions stay in t
   assert.match(source, /Terms of Use/); assert.match(source, /Privacy Policy/);
   assert.match(source, /class="skeleton/); assert.match(source, /id="demo-form"/);
 });
+
+test('scenario switches update the actual result, selection and size chart', async () => {
+  const dom = await mount(), d = dom.window.document;
+  assert.ok(d.querySelector('#profile-chart svg'));
+  d.querySelector('[data-preset="conservative"]').click();
+  assert.equal(d.getElementById('preset').value, 'conservative');
+  assert.equal(d.getElementById('quote-status').textContent, 'REJECTED');
+  assert.equal(d.getElementById('size-profile').hidden, true);
+  assert.equal(d.querySelector('[data-preset="conservative"]').getAttribute('aria-pressed'), 'true');
+  d.querySelector('[data-preset="reference"]').click();
+  assert.equal(d.getElementById('net-value').textContent, '$0.40');
+  assert.equal(d.querySelectorAll('[data-preset][aria-pressed="true"]').length, 1);
+  assert.equal(d.getElementById('size-profile').hidden, false);
+  change(dom, 'fee', '0.01');
+  assert.equal(d.querySelectorAll('#profile-chart svg').length, 0);
+  dom.window.close();
+});

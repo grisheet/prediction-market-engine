@@ -1,5 +1,6 @@
 import { evaluate, preset, simulate, dollars } from './engine.mjs';
 import Decimal from './vendor/decimal.mjs';
+import { renderProfile } from './profile.mjs';
 
 const byId = id => document.getElementById(id);
 const mappings = { quantity: 'quantity', fee: 'fee', reserve: 'reserve', maxUnmatched: 'max-unmatched', minProfit: 'min-profit', minRoi: 'min-roi', maxOrder: 'max-order', balance: 'balance', maxTotal: 'max-total', maxEvent: 'max-event', ageMs: 'book-age' };
@@ -30,10 +31,14 @@ function invalidate() {
   byId('quote-status').textContent = killed ? 'STOPPED' : 'INPUTS CHANGED';
   byId('quote-message').textContent = killed ? 'New evaluations and paper runs are blocked in this tab.' : 'Inputs changed. Evaluate again to update the result.';
   byId('quote-details').hidden = true; byId('paper-output').hidden = true;
+  byId('size-profile').hidden = true; byId('profile-chart').replaceChildren();
+  byId('quote-status').dataset.state = killed ? 'STOPPED' : 'INPUTS CHANGED';
   byId('paper-run').disabled = true; byId('download-run').disabled = true;
 }
 function applyPreset(name) {
   const input = preset(name);
+  byId('preset').value = name;
+  for (const button of document.querySelectorAll('[data-preset]')) button.setAttribute('aria-pressed', String(button.dataset.preset === name));
   for (const [key, id] of Object.entries(mappings)) byId(id).value = input[key];
   byId('yes-depth').value = input.yes.map(l => `${l.price}, ${l.quantity}`).join('\n');
   byId('no-depth').value = input.no.map(l => `${l.price}, ${l.quantity}`).join('\n');
@@ -50,6 +55,7 @@ function calculate() {
   try {
     currentInput = readInput(); signal = evaluate(currentInput); currentReport = signal;
     byId('quote-status').textContent = signal.status.replaceAll('_', ' ');
+    byId('quote-status').dataset.state = signal.status;
     byId('download-run').disabled = false;
     if (signal.status !== 'EVALUABLE') { byId('quote-message').textContent = signal.reason; return; }
     byId('quote-message').textContent = 'A size passes this synthetic scenario’s configured limits.';
@@ -57,15 +63,20 @@ function calculate() {
     byId('net-context').textContent = `${signal.quantity} paired contracts · ${new Decimal(signal.roi).times(100).toFixed(2)}% net ROI`;
     breakdown([['YES acquisition', dollars(signal.legs[0].cost)], ['NO acquisition', dollars(signal.legs[1].cost)], ['Total acquisition', dollars(signal.acquisition_cost)], ['Rounded fees', dollars(signal.fees)], ['Adverse-movement reserve', dollars(signal.other_costs)], ['Conservative payout', dollars(signal.payout)], ['Gross surplus before fees', dollars(signal.gross_profit)], ['Capital committed, including reserve', dollars(signal.committed)]]);
     byId('quote-details').hidden = false; byId('paper-run').disabled = false;
+    renderProfile(byId('profile-chart'), currentInput, signal);
+    byId('profile-range').textContent = `Up to ${signal.quantity} contracts`;
+    byId('size-profile').hidden = false;
   } catch (error) {
     signal = null; currentInput = null; currentReport = null;
     byId('quote-status').textContent = 'CHECK INPUTS';
+    byId('quote-status').dataset.state = 'CHECK INPUTS';
     byId('quote-message').textContent = error instanceof Error ? error.message : 'Review the input values.';
   }
 }
 byId('demo-form').addEventListener('submit', event => { event.preventDefault(); calculate(); });
 byId('demo-form').addEventListener('input', invalidate);
 byId('preset').addEventListener('change', event => applyPreset(event.target.value));
+for (const button of document.querySelectorAll('[data-preset]')) button.addEventListener('click', () => applyPreset(button.dataset.preset));
 byId('paper-scenario').addEventListener('change', () => { byId('paper-output').hidden = true; currentReport = signal; });
 byId('paper-run').addEventListener('click', () => {
   try {
@@ -96,7 +107,17 @@ byId('download-run').addEventListener('click', () => {
   const anchor = document.createElement('a'); anchor.href = url; anchor.download = 'synthetic-research-result.json'; document.body.append(anchor); anchor.click(); anchor.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
-byId('load-state').hidden = true; byId('lab').hidden = false; applyPreset('reference');
+byId('load-state').hidden = true; byId('lab').hidden = false; byId('scenario-bar').hidden = false; applyPreset('reference');
+if (typeof IntersectionObserver === 'function') {
+  const navigation = document.querySelectorAll('[data-section]');
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) if (entry.isIntersecting) for (const link of navigation) {
+      if (link.dataset.section === entry.target.id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  }, { rootMargin: '-20% 0px -55% 0px' });
+  for (const id of ['demo', 'setup', 'results']) observer.observe(byId(id));
+}
 
 async function loadReports() {
   try {
